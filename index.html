@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GithubResource Tracker</title>
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Tailwind CSS + DaisyUI -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+  <body class="w-11/12 mx-auto">
+    <!-- loginSection -->
+    <!-- <section id="loginPage">
+      <div class="bg-base-200 min-h-screen hero">
+        <div class="hero-content">
+          <div class="card bg-base-100 w-full max-w-sm shadow-2xl">
+            <div class="card-body py-20">
+              <div class="text-center">
+                <img
+                  class="w-10 mx-auto"
+                  src="./assets/github-logo.png"
+                  alt=""
+                />
+                <h2 class="font-bold text-[24px]">GitHub Issues Tracker</h2>
+                <p class="text-[#64748B]">Sign in to manage your issues</p>
+              </div>
+              <fieldset class="fieldset">
+                <label class="label">Username</label>
+                <input
+                  id="userName"
+                  type="text"
+                  class="input"
+                  placeholder="userName"
+                />
+                <div>
+                  <p class="text-[#4A00FF]">Default: admin</p>
+                </div>
+                <label class="label">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  class="input"
+                  placeholder="Password"
+                />
+                <div>
+                  <p class="text-[#4A00FF]">Default: admin123</p>
+                </div>
+                <button
+                  id="btnLogin"
+                  onclick="authentication()"
+                  class="btn bg-[#4A00FF] text-white mt-4"
+                >
+                  Login
+                </button>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <!-- home -->
+    <section id="homePage" class="">
+      <header id="header">
+        <div class="navbar bg-base-100 shadow-sm gap-2">
+          <img class="w-[36px]" src="./assets/github-logo.png" alt="">
+          <div class="flex-1">
+            <a class="btn btn-ghost text-sm md:text-xl">GitHub Issues Tracker</a>
+          </div>
+          <div class="input input-bordered w-24 md:w-auto">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search issues..." />
+          </div>
+          <button class="btn btn-outline bg-[#4A00FF] text-white">
+            <i class="fa-solid fa-plus"></i> New Issue
+          </button>
+        </div>
+      </header>
+    </section>
+    <script src="./script/index.js"></script>
+  </body>
+</html>
