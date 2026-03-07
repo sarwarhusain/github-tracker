@@ -1,3 +1,7 @@
 .geist {
   font-family: "Geist", sans-serif;
 }
+.active{
+  background-color: skyblue;
+  color: black;
+}

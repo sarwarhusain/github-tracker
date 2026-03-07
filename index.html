@@ -21,15 +21,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
     <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
       rel="stylesheet"
     />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="./style/style.css" />
   </head>
-  <body class="w-11/12 mx-auto">
+  <body class="max-w-7xl mx-auto px-3">
     <!-- loginSection -->
     <!-- <section id="loginPage">
       <div class="bg-base-200 min-h-screen hero">
@@ -102,23 +104,26 @@
       <section id="">
         <div
           id="btnContainer"
-          class="flex flex-wrap justify-center gap-4"
+          class="flex flex-wrap  gap-4 my-8 md:justify-start"
         ></div>
-        <!-- <div id="counter">
-          <div>
-            <img src="" alt="">
-            <div>
-
+        <div id="countContainer">
+          <div class="flex justify-between">
+            <div class="flex">
+              <img class="bg-gray-200 rounded-full p-2" src="./assets/Aperture.png" alt="" />
+              <div class="ml-3">
+                <h2><span id="count"></span> issues</h2>
+                <p class="text-sm text-gray-500">Track and manage your project issues</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <p class="text-green-600  rounded-full"></p>
+              <h2 id="openText">open</h2>
+              <h2 id="closeText">Close</h2>
             </div>
           </div>
-          <div>
-            
-          </div>
-        </div> -->
-        <div id="countContainer"></div>
-        <div id="cardContainer" class="grid grid-cols-4 gap-10">
-          
+          <div></div>
         </div>
+        <div id="cardContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 mt-5"></div>
       </section>
     </section>
     <script src="./script/index.js"></script>
