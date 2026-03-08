@@ -54,12 +54,11 @@ const loadAllIssues = () => {
 //     });
 // };
 
-//button toggling
+//buttons  toggling
 const toggle = (id) => {
   document.getElementById("btnAll").classList.remove("btn-primary");
   document.getElementById("btnOpen").classList.remove("btn-primary");
   document.getElementById("btnClosed").classList.remove("btn-primary");
-
   document.getElementById(id).classList.add("btn-primary");
 };
 
