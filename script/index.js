@@ -124,8 +124,8 @@ const displayCard = (items) => {
               <div class="flex justify-between">
                 <button class="rounded-full m-2 btn border-t-cyan-600">${
                   item.status === "open"
-                    ? `<img src="../assets/Open-Status.png" >`
-                    : `<img src="../assets/Closed-Status.png">`
+                    ? `<img src="assets/Open-Status.png" >`
+                    : `<img src="assets/Closed-Status.png">`
                 }
                 </button>
                 <button  class="${color} rounded-full m-2 btn border-t-cyan-600">${item.priority} </button>
