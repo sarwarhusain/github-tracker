@@ -20,7 +20,7 @@ const createLabels = (arr) => {
   return arr
     .map(
       (el) =>
-        `<span class="btn btn-sm border-b-cyan-600 m-1 bg-[#FFF8DB]">${el}</span>`,
+        `<span class="btn  btn-sm border-b-cyan-600 bg-[#FFF8DB]">${el}</span>`,
     )
     .join("");
 };
@@ -46,25 +46,21 @@ const loadAllIssues = () => {
     });
 };
 
-// const loadCard = (id) => {
-//   fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`)
-//     .then((res) => res.json())
-//     .then((data) => {
-//       displayCard(data);
-//     });
-// };
+
+const loadCardDetails = async (id) => {
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+  const res = await fetch(url);
+  const details = await res.json();
+  displayCardDetails(details.data);
+};
 
 //buttons  toggling
 const toggle = (id) => {
   document.getElementById("btnAll").classList.remove("btn-primary");
   document.getElementById("btnOpen").classList.remove("btn-primary");
   document.getElementById("btnClosed").classList.remove("btn-primary");
-  document.getElementById(id).classList.add("btn-primary");
-};
 
-const toggling = () => {
-  const isActive = document.querySelectorAll(".btnActive");
-  isActive.classList.add("active");
+  document.getElementById(id).classList.add("btn-primary");
 };
 
 const allTab = () => {
@@ -102,6 +98,61 @@ const closeTab = () => {
   displayCard(statusClose);
 };
 
+// data": {
+// "id": 33,
+// "title": "Add bulk operations support",
+// "description": "Allow users to perform bulk actions like delete, update status on multiple items at once.",
+// "status": "open",
+// "labels": [
+// "enhancement"
+// ],
+// "priority": "low",
+// "author": "bulk_barry",
+// "assignee": "",
+// "createdAt": "2024-02-02T10:00:00Z",
+// "updatedAt": "2024-02-02T10:00:00Z"
+// }
+// }
+
+//card details
+const displayCardDetails = (detail,color) => {
+  // console.log(detail);
+  const cardDetails = document.getElementById("modalContainer");
+  cardDetails.innerHTML = "";
+  cardDetails.innerHTML = ` <h3 class="text-lg font-bold">${detail.title}</h3>
+          <div class="flex items-center gap-5">
+            <button class="rounded-xl  m-2 btn border-t-cyan-600">${
+              detail.status
+             
+            }
+                </button>
+            <div class="flex gap-8">
+              <li>Opened By ${detail.author}</li>
+              <li>${new Date(detail.createdAt).toLocaleDateString()}</li>
+            </div>
+          </div>
+         <div class="card-actions gap-4 justify-between">
+                <div class=""> ${createLabels(detail.labels)}</div>
+              </div>
+          <p>
+           ${detail.description}
+          </p>
+          <div
+            class="flex justify-between bg-[#F8FAFC] p-5 rounded-lg items-center"
+          >
+            <div>
+              <h2 class="text-lg text-[#64748B]">Assignee:</h2>
+              <p>${detail.assignee ? detail.assignee : "No Assignee"}</p>
+            </div>
+
+            <div class="">
+              <h2 class="text-lg text-[#64748B]">Priority:</h2>
+               <button  class="${color} rounded-xl m-2 btn border-t-cyan-600 ">${detail.priority} </button>
+            </div>
+          </div>`;
+  document.getElementById("modalDetails").showModal();
+};
+
 const displayCard = (items) => {
   const cardContainer = document.getElementById("cardContainer");
   cardContainer.innerHTML = "";
@@ -119,31 +170,31 @@ const displayCard = (items) => {
     }
 
     cardDiv.innerHTML = `
-         <div class=" bg-base-100 md:w-72 lg:h-full shadow-sm rounded-lg ${item.status === "open" ? "border-t-4 border-green-500" : "border-t-4 border-purple-500"}">
+         <div onclick="loadCardDetails(${item.id})" class=" bg-base-100 md:w-72 lg:h-full shadow-sm rounded-lg ${item.status === "open" ? "border-t-4 border-green-500" : "border-t-4 border-purple-500"}">
             <div class="card-body ">
               <div class="flex justify-between">
-                <button class="rounded-full m-2 btn border-t-cyan-600">${
+                <button class="rounded-xl m-2 btn border-t-cyan-600">${
                   item.status === "open"
                     ? `<img src="assets/OpenStatus.png" >`
                     : `<img src="assets/ClosedStatus.png">`
                 }
                 </button>
-                <button  class="${color} rounded-full m-2 btn border-t-cyan-600">${item.priority} </button>
+                <button  class="${color} rounded-xl m-2 btn border-t-cyan-600">${item.priority} </button>
               </div>
               <h2 class="card-title text-[14px]">${item.title}</h2>
               <p class="text-[12px]">
                 ${item.description}
               </p>
               <div class="card-actions gap-4 justify-between">
-                <div class="text-[12px] "> ${createLabels(item.labels)}</div>
+                <div class=""> ${createLabels(item.labels)}</div>
               </div>
               <div class="divider"></div>
-              <div class="text-[12px] flex gap-4 justify-between">
+              <div class="flex gap-4 justify-between">
                  <div class="">#${item.id} by ${item.author}</div>
                 <div class="">${new Date(item.createdAt).toLocaleDateString()}</div>
               </div>
                
-              <div class="card-actions text-[12px]  gap-4 justify-between">
+              <div class="flex  text-[12px]  gap-4 justify-between">
                 <div class="">${item.assignee ? item.assignee : "No Assignee"}</div>
                 <div class="">${new Date(item.updatedAt).toLocaleDateString()}</div>
               </div>
@@ -158,19 +209,16 @@ const displayCard = (items) => {
 const displayCardBtn = () => {
   const btnContainer = document.getElementById("btnContainer");
   btnContainer.innerHTML = "";
-  const btnAll = document.createElement("div");
-  btnAll.classList.add("space-x-10");
-  btnAll.innerHTML = `
-                  <button id="btnAll" onclick="allTab()" class="btn  btn-primary ">
-                    All </button>
-                  <button id="btnOpen" onclick="openTab()" class=" btn btn-primary ">
+  btnContainer.innerHTML = `
+                  <button id="btnAll" onclick="allTab()" class="btn btn-primary ">
+                    All 
+                  </button>
+                  <button id="btnOpen" onclick="openTab()" class="btn">
                     open
                   </button>
-                  <button id="btnClosed" onclick="closeTab()" class=" btn btn-primary  ">
+                  <button id="btnClosed" onclick="closeTab()" class="btn">
                     close
                   </button>
     `;
-
-  btnContainer.appendChild(btnAll);
 };
 loadAllIssues();
