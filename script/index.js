@@ -216,18 +216,18 @@ const displayCardBtn = () => {
     `;
 };
 loadAllIssues();
-document.getElementById("btnSearch").addEventListener("click", () => {
-  const input = document
-    .getElementById("inputSearch")
-    .value.trim()
-    .toLowerCase();
+document.getElementById("btnSearch").addEventListener("click", (e) => {
+  e.preventDefault();
+  const inputField = document.getElementById("inputSearch");
+  const input = inputField.value.trim().toLowerCase();
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
     .then((data) => {
-      const searchText = data.data;
+      const searchText = data.data || [];
       const filteredData = searchText.filter((title) =>
         title.title.toLowerCase().includes(input),
       );
       displayCard(filteredData);
+      inputField.value = "";
     });
 });
