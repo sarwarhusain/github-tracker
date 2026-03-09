@@ -34,6 +34,16 @@ const spinner = (status) => {
     document.getElementById("cardContainer").classList.remove("hidden");
   }
 };
+// details card
+const getPriorityColor = (priority) => {
+  if (priority === "high") {
+    return "bg-red-300 ";
+  } else if (priority === "low") {
+    return "bg-gray-200";
+  } else {
+    return "bg-orange-200";
+  }
+};
 const loadAllIssues = () => {
   spinner(true);
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
@@ -45,7 +55,6 @@ const loadAllIssues = () => {
       displayCardBtn(issues);
     });
 };
-
 
 const loadCardDetails = async (id) => {
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
@@ -98,36 +107,27 @@ const closeTab = () => {
   displayCard(statusClose);
 };
 
-// data": {
-// "id": 33,
-// "title": "Add bulk operations support",
-// "description": "Allow users to perform bulk actions like delete, update status on multiple items at once.",
-// "status": "open",
-// "labels": [
-// "enhancement"
-// ],
-// "priority": "low",
-// "author": "bulk_barry",
-// "assignee": "",
-// "createdAt": "2024-02-02T10:00:00Z",
-// "updatedAt": "2024-02-02T10:00:00Z"
-// }
-// }
-
 //card details
-const displayCardDetails = (detail,color) => {
+const displayCardDetails = (detail) => {
   // console.log(detail);
   const cardDetails = document.getElementById("modalContainer");
   cardDetails.innerHTML = "";
-  cardDetails.innerHTML = ` <h3 class="text-lg font-bold">${detail.title}</h3>
+  const color = getPriorityColor(detail.priority);
+  const author = detail.author
+    ? detail.author.split("_").join(" ")
+    : "No Author"; //using replace detail.author ? detail.author.replaceAll('_',' ') : 'no author'
+  const assignee = detail.assignee
+    ? detail.assignee.split("_").join(" ")
+    : "No Assignee";
+
+  const detailsDiv = document.createElement("div");
+  detailsDiv.classList.add("space-y-5");
+  detailsDiv.innerHTML = ` <h3 class="text-lg font-bold">${detail.title}</h3>
           <div class="flex items-center gap-5">
-            <button class="rounded-xl  m-2 btn border-t-cyan-600">${
-              detail.status
-             
-            }
+            <button class="${detail.status === "open" ? "bg-green-500 text-white" : "bg-purple-500 text-white"} rounded-xl  m-2 btn border-t-cyan-600">${detail.status}
                 </button>
             <div class="flex gap-8">
-              <li>Opened By ${detail.author}</li>
+              <li>Opened By ${author}</li>
               <li>${new Date(detail.createdAt).toLocaleDateString()}</li>
             </div>
           </div>
@@ -142,7 +142,7 @@ const displayCardDetails = (detail,color) => {
           >
             <div>
               <h2 class="text-lg text-[#64748B]">Assignee:</h2>
-              <p>${detail.assignee ? detail.assignee : "No Assignee"}</p>
+              <p>${assignee}</p>
             </div>
 
             <div class="">
@@ -150,6 +150,7 @@ const displayCardDetails = (detail,color) => {
                <button  class="${color} rounded-xl m-2 btn border-t-cyan-600 ">${detail.priority} </button>
             </div>
           </div>`;
+  cardDetails.appendChild(detailsDiv);
   document.getElementById("modalDetails").showModal();
 };
 
@@ -160,15 +161,7 @@ const displayCard = (items) => {
   items.forEach((item) => {
     const cardDiv = document.createElement("div");
     //default color
-    let color = "";
-    if (item.priority === "high") {
-      color = "bg-red-300 ";
-    } else if (item.priority === "low") {
-      color = "bg-gray-200";
-    } else {
-      color = "bg-orange-200";
-    }
-
+    const color = getPriorityColor(item.priority);
     cardDiv.innerHTML = `
          <div onclick="loadCardDetails(${item.id})" class=" bg-base-100 md:w-72 lg:h-full shadow-sm rounded-lg ${item.status === "open" ? "border-t-4 border-green-500" : "border-t-4 border-purple-500"}">
             <div class="card-body ">
