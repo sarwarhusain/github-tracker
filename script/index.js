@@ -215,3 +215,43 @@ const displayCardBtn = () => {
     `;
 };
 loadAllIssues();
+// document.getElementById("btnSearch").addEventListener("click", () => {
+//   console.log("clicked");
+//   const input = document
+//     .getElementById("inputSearch")
+//     .value.trim()
+//     .toLowerCase();
+//   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+//     .then((res) => res.json())
+//     .then((data) => {
+//       // console.log(data.data);
+//       const searchText = data.data;
+//       // console.log(searchText);
+//       const filteredData = searchText.filter((title) =>
+//         title.title.toLowerCase().includes(input),
+//       );
+//       displayCard(filteredData);
+//     });
+
+//   // console.log(input);
+// });
+document.getElementById("btnSearch").addEventListener("click", () => {
+  console.log("clicked");
+
+  const input = document
+    .getElementById("inputSearch")
+    .value.trim()
+    .toLowerCase();
+  console.log(input);
+  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("clicked data", data.data);
+      const searchText = data.data;
+      const filteredData = searchText.filter((title) =>
+        title.title.toLowerCase().includes(input),
+      );
+      displayCard(filteredData);
+      // console.log(filteredData);
+    });
+});
