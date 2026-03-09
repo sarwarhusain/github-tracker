@@ -1,18 +1,18 @@
 // loginPage
 
-// const authentication = () => {
-//   const inputName = document.getElementById("userName");
-//   const userName = inputName.value;
-//   const inputPass = document.getElementById("password");
-//   const password = inputPass.value;
+const authentication = () => {
+  const inputName = document.getElementById("userName");
+  const userName = inputName.value;
+  const inputPass = document.getElementById("password");
+  const password = inputPass.value;
 
-//   if (userName === "admin" && password === "admin123") {
-//     document.getElementById("loginPage").classList.add("hidden");
-//     document.getElementById("homePage").classList.remove("hidden");
-//   } else {
-//     alert("invalid");
-//   }
-// };
+  if (userName === "admin" && password === "admin123") {
+    document.getElementById("loginPage").classList.add("hidden");
+    document.getElementById("homePage").classList.remove("hidden");
+  } else {
+    alert("invalid");
+  }
+};
 //
 let issues = [];
 const count = document.getElementById("count");
@@ -34,6 +34,7 @@ const spinner = (status) => {
     document.getElementById("cardContainer").classList.remove("hidden");
   }
 };
+
 // details card
 const getPriorityColor = (priority) => {
   if (priority === "high") {
@@ -215,43 +216,19 @@ const displayCardBtn = () => {
     `;
 };
 loadAllIssues();
-// document.getElementById("btnSearch").addEventListener("click", () => {
-//   console.log("clicked");
-//   const input = document
-//     .getElementById("inputSearch")
-//     .value.trim()
-//     .toLowerCase();
-//   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
-//     .then((res) => res.json())
-//     .then((data) => {
-//       // console.log(data.data);
-//       const searchText = data.data;
-//       // console.log(searchText);
-//       const filteredData = searchText.filter((title) =>
-//         title.title.toLowerCase().includes(input),
-//       );
-//       displayCard(filteredData);
-//     });
-
-//   // console.log(input);
-// });
 document.getElementById("btnSearch").addEventListener("click", () => {
   console.log("clicked");
-
   const input = document
     .getElementById("inputSearch")
     .value.trim()
     .toLowerCase();
-  console.log(input);
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
     .then((data) => {
-      console.log("clicked data", data.data);
       const searchText = data.data;
       const filteredData = searchText.filter((title) =>
         title.title.toLowerCase().includes(input),
       );
       displayCard(filteredData);
-      // console.log(filteredData);
     });
 });
