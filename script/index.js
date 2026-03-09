@@ -217,7 +217,6 @@ const displayCardBtn = () => {
 };
 loadAllIssues();
 document.getElementById("btnSearch").addEventListener("click", () => {
-  console.log("clicked");
   const input = document
     .getElementById("inputSearch")
     .value.trim()
