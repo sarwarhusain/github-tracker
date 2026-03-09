@@ -10,7 +10,7 @@ const authentication = () => {
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("homePage").classList.remove("hidden");
   } else {
-    alert("Invalid Authentication");
+    alert("invalid Authentication");
   }
 };
 //
