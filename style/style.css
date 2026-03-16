@@ -1,3 +1,19 @@
 .geist {
   font-family: "Geist", sans-serif;
 }
+
+/* Page loads
+   ↓
+Login page visible
+   ↓
+User clicks Login
+   ↓
+Home page appears
+   ↓
+loadAllIssues()
+   ↓
+Spinner shows
+   ↓
+Data loads
+   ↓
+Cards display */

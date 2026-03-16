@@ -9,6 +9,7 @@ const authentication = () => {
   if (userName === "admin" && password === "admin123") {
     document.getElementById("loginPage").classList.add("hidden");
     document.getElementById("homePage").classList.remove("hidden");
+    loadAllIssues();
   } else {
     alert("invalid Authentication");
   }
@@ -53,7 +54,11 @@ const loadAllIssues = () => {
       issues = data.data;
       count.innerText = issues.length;
       displayCard(issues);
-      displayCardBtn(issues);
+      displayCardBtn();
+      
+      setTimeout(() => {
+        spinner(false);
+      }, 800);
     });
 };
 
@@ -197,7 +202,7 @@ const displayCard = (items) => {
 
     cardContainer.appendChild(cardDiv);
   });
-  spinner(false);
+  // spinner(false);
 };
 
 const displayCardBtn = () => {
@@ -215,7 +220,7 @@ const displayCardBtn = () => {
                   </button>
     `;
 };
-loadAllIssues();
+
 document.getElementById("btnSearch").addEventListener("click", (e) => {
   e.preventDefault();
   const inputField = document.getElementById("inputSearch");
@@ -223,7 +228,7 @@ document.getElementById("btnSearch").addEventListener("click", (e) => {
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
     .then((res) => res.json())
     .then((data) => {
-      const searchText = data.data || [];
+      const searchText = data.data;
       const filteredData = searchText.filter((title) =>
         title.title.toLowerCase().includes(input),
       );
